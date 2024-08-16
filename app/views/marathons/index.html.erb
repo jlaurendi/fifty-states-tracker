@@ -1,0 +1,7 @@
+<h1>Marathons</h1>
+
+<ul>
+    <% @marathons.each do |marathon| %>
+        <li><%= link_to "#{marathon.name}", marathon_path(marathon) %></li>
+    <% end %>
+</ul>
