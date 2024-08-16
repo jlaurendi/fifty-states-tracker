@@ -1,0 +1,2 @@
+class Marathon < ApplicationRecord
+end
