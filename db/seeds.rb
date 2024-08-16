@@ -10,6 +10,7 @@
 
 # db/seeds.rb
 
+# Populate states table
 states = [
   { name: 'Alabama', abbreviation: 'AL' },
   { name: 'Alaska', abbreviation: 'AK' },
@@ -66,3 +67,14 @@ states = [
 states.each do |state|
   State.find_or_create_by(state)
 end
+
+
+# Create a test user
+User.create(email: "joe@example.com", password: "password123", password_confirmation: "password123")
+marathon = Marathon.create(name: "New York Marathon", city: "New York", state: "NY")
+
+user = User.first
+marathon = Marathon.first
+user_goal_with_marathon = user.user_goals.create(name: "New York Marathon", marathon: marathon, target_date: Date.new(2024, 11, 3), status: :planned)
+goal = user.user_goals.create(status: 'planned', target_date: Date.new(2024, 12, 31))
+state = State.find_by(abbreviation: "NY")
