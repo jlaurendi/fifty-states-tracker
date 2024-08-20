@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module FiftyStatesTracker
   class Application < Rails::Application
+    # Set the application to API-only mode
+    config.api_only = true
+    
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2
 

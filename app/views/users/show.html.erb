@@ -1,7 +1,0 @@
-<h1>User Goal Map</h1>
-
-<ul>
-    <% @user.user_goals.each do |user_goal| %>
-        <li><%= "#{user_goal.marathon.name} - #{user_goal.marathon.state}" %></li>
-    <% end %>
-</ul>
