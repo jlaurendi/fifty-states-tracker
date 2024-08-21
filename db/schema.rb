@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_16_164355) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_21_212652) do
   create_table "marathons", force: :cascade do |t|
     t.string "name"
     t.string "city"
@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_16_164355) do
     t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "state"
     t.index ["marathon_id"], name: "index_user_goals_on_marathon_id"
     t.index ["user_id"], name: "index_user_goals_on_user_id"
   end

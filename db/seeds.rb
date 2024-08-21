@@ -71,10 +71,10 @@ end
 
 # Create a test user
 User.create(email: "joe@example.com", password: "password123", password_confirmation: "password123")
-marathon = Marathon.create(name: "New York Marathon", city: "New York", state: "NY")
+marathon_ny = Marathon.create(name: "New York Marathon", city: "New York", state: "NY")
+marathon_ma = Marathon.create(name: "Boston Marathon", city: "Boston", state: "MA")
 
 user = User.first
-marathon = Marathon.first
-user_goal_with_marathon = user.user_goals.create(name: "New York Marathon", marathon: marathon, target_date: Date.new(2024, 11, 3), status: :planned)
-goal = user.user_goals.create(status: 'planned', target_date: Date.new(2024, 12, 31))
-state = State.find_by(abbreviation: "NY")
+user.user_goals.create(name: "New York Marathon", marathon: marathon_ny, target_date: Date.new(2024, 11, 3), status: :planned, state: "NY")
+user.user_goals.create(name: "Boston Marathon", marathon: marathon_ma, target_date: Date.new(2024, 11, 3), status: :planned, state: "MA")
+user.user_goals.create(status: 'planned', target_date: Date.new(2024, 12, 31))
