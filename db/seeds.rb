@@ -78,3 +78,6 @@ user = User.first
 user.user_goals.create(name: "New York Marathon", marathon: marathon_ny, target_date: Date.new(2024, 11, 3), status: :planned, state: "NY")
 user.user_goals.create(name: "Boston Marathon", marathon: marathon_ma, target_date: Date.new(2024, 11, 3), status: :planned, state: "MA")
 user.user_goals.create(status: 'planned', target_date: Date.new(2024, 12, 31))
+
+marathon_ca = Marathon.create(name: "Los Angeles Marathon", city: "Los Angeles", state: "CA")
+user.user_goals.create(name: "Los Angeles Marathon", marathon: marathon_ca, target_date: Date.new(2024, 11, 3), status: :planned, state: "CA")

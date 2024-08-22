@@ -11,6 +11,7 @@ const UserMapComponent: FC<UserMapComponentProps> = ({userName, statesToGoals}) 
     const [states, setStates] = useState({})
 
     useEffect(() => {
+        const userId = 1 // hardcoded for now
         axios.get(`http://localhost:3000/users/${userId}/goals`)
         .then(response => {
             const userGoals = response.data
@@ -36,20 +37,6 @@ const UserMapComponent: FC<UserMapComponentProps> = ({userName, statesToGoals}) 
     const mapHandler = (event) => {
       // TODO: do something interesting
     }
-
-    const userId = 1 // hardcoded for now
-    // const statesCustomConfig = () => {
-    //     return {
-    //       "NJ": {
-    //         fill: "navy",
-    //         clickHandler: (event) => console.log('Custom handler for NJ', event.target.dataset)
-    //       },
-    //       "NY": {
-    //         fill: "#CC0000"
-    //       }
-    //     };
-    //   };
-    
 
     return (
         <>

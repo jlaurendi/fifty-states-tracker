@@ -8,7 +8,7 @@ class UsersController < ApplicationController
         @user_goals = @user.user_goals
     end
 
-    # /users/:id/goals
+    # GET /users/:id/goals
     def goals
         user = User.find(params[:id])
         user_goals = user.user_goals
