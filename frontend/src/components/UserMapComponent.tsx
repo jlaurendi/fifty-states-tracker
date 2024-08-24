@@ -1,6 +1,7 @@
 import axios from "axios"
 import React, { FC, useEffect, useState } from "react"
 import USAMap from "react-usa-map"
+import UserGoalModalComponent from "./UserGoalModalComponent"
 
 interface UserMapComponentProps {
     userName: string,
@@ -9,6 +10,8 @@ interface UserMapComponentProps {
 
 const UserMapComponent: FC<UserMapComponentProps> = ({userName, statesToGoals}) => {
     const [states, setStates] = useState({})
+    const [modalOpen, setModalOpen] = useState(false)
+    const [selectedState, setSelectedState] = useState('')
 
     useEffect(() => {
         const userId = 1 // hardcoded for now
@@ -35,7 +38,13 @@ const UserMapComponent: FC<UserMapComponentProps> = ({userName, statesToGoals}) 
     }
 
     const mapHandler = (event) => {
-      // TODO: do something interesting
+      setModalOpen(true)
+      setSelectedState(event.target.dataset.name)
+      console.log(event)
+    }
+
+    const onClose = (event) => {
+        setModalOpen(false)
     }
 
     return (
@@ -43,6 +52,7 @@ const UserMapComponent: FC<UserMapComponentProps> = ({userName, statesToGoals}) 
             <div>{userName}'s Marathon Map</div>
             <div>{statesToGoals}</div>
             <USAMap onClick={mapHandler} customize={states} />
+            <UserGoalModalComponent isOpen={modalOpen} onClose={onClose} selectedState={selectedState} />
         </>
     )
 }
