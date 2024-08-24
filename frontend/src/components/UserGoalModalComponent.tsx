@@ -5,10 +5,12 @@ const UserGoalModalComponent = ({ isOpen, onClose, selectedState }) => {
     if (!isOpen) return null
 
     return (
-        <div className="modalOverlay">
-            <h2 className="modalTitle">{selectedState} Goal</h2>
-            <p>Information about state to go here</p>
-            <button onClick={onClose}>Close</button>
+        <div className="modal-overlay">
+            <div className="modal-content">
+                <h2 className="modal-title">{selectedState} Goal</h2>
+                <p>Information about state to go here</p>
+                <button onClick={onClose}>Close</button>
+            </div>
         </div>
     )
 }
