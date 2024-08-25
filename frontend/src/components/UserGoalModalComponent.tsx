@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './UserGoalModalComponent.css';
 
-const UserGoalModalComponent = ({ isOpen, onClose, selectedState }) => {
+interface UserGoalModalComponentProps {
+    isOpen: boolean;
+    onClose: () => void;
+    selectedState: string | null;
+}
+
+const UserGoalModalComponent: FC<UserGoalModalComponentProps> = ({ isOpen, onClose, selectedState }) => {
   if (!isOpen) return null;
 
   return (

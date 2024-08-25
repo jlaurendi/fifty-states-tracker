@@ -47,13 +47,13 @@ const UserMapComponent: FC<UserMapComponentProps> = ({
     console.log(event);
   };
 
-  const onClose = (event) => {
+  const onClose = () => {
     setModalOpen(false);
   };
 
   return (
     <>
-      <div>{userName}'s Marathon Map</div>
+      <div>{`${userName}'s Marathon Map`}</div>
       <div>{statesToGoals}</div>
       <USAMap onClick={mapHandler} customize={states} />
       <UserGoalModalComponent
