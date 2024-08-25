@@ -50,8 +50,18 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Lint code for consistent style
+      - name: Run rubocop (ruby linting)
         run: bin/rubocop -f github
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - run: npm install
+
+      - name: Run ESLint (js linting)
+        run: npm run lint
 
   test:
     runs-on: ubuntu-latest
