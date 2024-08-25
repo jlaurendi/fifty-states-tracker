@@ -67,7 +67,7 @@ jobs:
       - run: npm install
 
       - name: Run ESLint (js linting)
-        run: npm run lint
+        run: cd frontend && npm run lint
 
   test:
     runs-on: ubuntu-latest
