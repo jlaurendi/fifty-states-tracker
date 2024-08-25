@@ -64,10 +64,10 @@ jobs:
         with:
           node-version: '16'
 
-      - run: npm install
+      - run: cd frontend && npm install
 
       - name: Run ESLint (js linting)
-        run: cd frontend && npm run lint
+        run: npm run lint
 
   test:
     runs-on: ubuntu-latest
