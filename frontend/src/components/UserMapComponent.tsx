@@ -5,16 +5,16 @@ import UserGoalModalComponent from './UserGoalModalComponent';
 
 interface UserMapComponentProps {
   userName: string;
-  statesToGoals: string;
 }
 
 const UserMapComponent: FC<UserMapComponentProps> = ({
-  userName,
-  statesToGoals,
+  userName
 }) => {
   const [states, setStates] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedState, setSelectedState] = useState('');
+  const [selectedUserGoal, setSelectedUserGoal] = useState({});
+  const [userGoals, setUserGoals] = useState([]);
 
   useEffect(() => {
     const userId = 1; // hardcoded for now
@@ -22,12 +22,20 @@ const UserMapComponent: FC<UserMapComponentProps> = ({
       .get(`http://localhost:3000/users/${userId}/goals`)
       .then((response) => {
         const userGoals = response.data;
+        setUserGoals(formattedUserGoals(userGoals));
         setStates(formatStatesData(userGoals));
       })
       .catch((error) => {
         console.log('Error:', error);
       });
   }, []);
+
+  const formattedUserGoals = (data) => {
+    return data.reduce((acc, elt) => {
+      acc[elt.state] = elt;
+      return acc;
+    }, {});
+  };
 
   const formatStatesData = (data) => {
     const formattedData = {};
@@ -44,7 +52,9 @@ const UserMapComponent: FC<UserMapComponentProps> = ({
   const mapHandler = (event) => {
     setModalOpen(true);
     setSelectedState(event.target.dataset.name);
-    console.log(event);
+    setSelectedUserGoal(userGoals[event.target.dataset.name]);
+    // console.log(event);
+    console.log(userGoals);
   };
 
   const onClose = () => {
@@ -54,12 +64,12 @@ const UserMapComponent: FC<UserMapComponentProps> = ({
   return (
     <>
       <div>{`${userName}'s Marathon Map`}</div>
-      <div>{statesToGoals}</div>
       <USAMap onClick={mapHandler} customize={states} />
       <UserGoalModalComponent
         isOpen={modalOpen}
         onClose={onClose}
         selectedState={selectedState}
+        userGoal={selectedUserGoal}
       />
     </>
   );
