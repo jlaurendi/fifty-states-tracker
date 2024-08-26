@@ -1,7 +1,11 @@
 {
     "compilerOptions": {
       "jsx": "react",
-      "tsx": "react"
+      "tsx": "react",
+      "baseUrl": "./src",
+      "paths": {
+        "types/*": ["types/*"]
+      }
     },
     "checkjs": true
 }

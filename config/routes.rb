@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users do
     get :goals, on: :member
+    post :goals, to: "users#create_goal",  on: :member
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

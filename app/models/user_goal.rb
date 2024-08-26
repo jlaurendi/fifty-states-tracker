@@ -1,6 +1,5 @@
 class UserGoal < ApplicationRecord
   belongs_to :user
-  belongs_to :marathon
 
   enum status: {
     tentative: "tentative",
@@ -10,4 +9,5 @@ class UserGoal < ApplicationRecord
   }
 
   validates :status, inclusion: { in: statuses.keys }
+  validates :name, :state, :target_date, presence: true
 end

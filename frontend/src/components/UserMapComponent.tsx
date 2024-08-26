@@ -2,18 +2,17 @@ import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
 import USAMap from 'react-usa-map';
 import UserGoalModalComponent from './UserGoalModalComponent';
+import { UserGoal } from 'types/user-goal'
 
 interface UserMapComponentProps {
   userName: string;
 }
 
-const UserMapComponent: FC<UserMapComponentProps> = ({
-  userName
-}) => {
+const UserMapComponent: FC<UserMapComponentProps> = ({ userName }) => {
   const [states, setStates] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedState, setSelectedState] = useState('');
-  const [selectedUserGoal, setSelectedUserGoal] = useState({});
+  const [selectedUserGoal, setSelectedUserGoal] = useState(null);
   const [userGoals, setUserGoals] = useState([]);
 
   useEffect(() => {
@@ -52,13 +51,19 @@ const UserMapComponent: FC<UserMapComponentProps> = ({
   const mapHandler = (event) => {
     setModalOpen(true);
     setSelectedState(event.target.dataset.name);
-    setSelectedUserGoal(userGoals[event.target.dataset.name]);
+
+    const userGoal = userGoals[event.target.dataset.name];
+    setSelectedUserGoal(userGoal);
     // console.log(event);
     console.log(userGoals);
   };
 
   const onClose = () => {
     setModalOpen(false);
+  };
+
+  const onSave = () => {
+    console.log('onsave');
   };
 
   return (
@@ -70,6 +75,7 @@ const UserMapComponent: FC<UserMapComponentProps> = ({
         onClose={onClose}
         selectedState={selectedState}
         userGoal={selectedUserGoal}
+        onSave={onSave}
       />
     </>
   );
