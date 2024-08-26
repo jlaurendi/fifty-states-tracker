@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import './UserGoalModalComponent.css';
-import { UserGoal } from 'types/user-goal'
+import { UserGoal } from 'types/user-goal';
 import axios from 'axios';
 
 interface UserGoalModalComponentProps {
@@ -19,22 +19,25 @@ const UserGoalModalComponent: FC<UserGoalModalComponentProps> = ({
   onSave,
 }) => {
   if (!isOpen) return null;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isEditing, setIsEditing] = useState(false);
   // const [currUserGoal, setCurrUserGoal] = useState(userGoal);
 
   const handleSave = async (event) => {
     event.preventDefault();
 
-    const formElement = document.querySelector('#create-goal-form') as HTMLFormElement;
+    const formElement = document.querySelector(
+      '#create-goal-form'
+    ) as HTMLFormElement;
     const formData = new FormData(formElement);
 
     // Create a mapping from frontend field names to backend field names
     const fieldMapping = {
       name: 'name',
       state: 'state',
-      targetDate: 'target_date'
+      targetDate: 'target_date',
     };
-
 
     // Convert FormData to a plain object
     const formObject: { [key: string]: string } = {};
@@ -45,14 +48,12 @@ const UserGoalModalComponent: FC<UserGoalModalComponentProps> = ({
     const goalObject = { goal: formObject };
 
     await axios
-      .post(
-        `http://localhost:3000/users/1/goals`, 
-        goalObject,
-        { headers: { 'Content-Type': 'application/json' } }
-      )
+      .post(`http://localhost:3000/users/1/goals`, goalObject, {
+        headers: { 'Content-Type': 'application/json' },
+      })
       .then((response) => {
         const userGoals = response.data.userGoals;
-        const newGoal = response.data.goal
+        const newGoal = response.data.goal;
         onSave(newGoal, userGoals);
       })
       .catch((error) => {
@@ -71,7 +72,11 @@ const UserGoalModalComponent: FC<UserGoalModalComponentProps> = ({
             <p>No marathon or goal for {selectedState} yet. Add one now:</p>
             <form id="create-goal-form">
               <input name="name" type="text" placeholder="Enter goal name" />
-              <input name="targetDate" type="date" placeholder="Enter target date" />
+              <input
+                name="targetDate"
+                type="date"
+                placeholder="Enter target date"
+              />
               <input name="state" type="hidden" value={selectedState} />
               <select name="status">
                 <option value="tentative">Maybe</option>

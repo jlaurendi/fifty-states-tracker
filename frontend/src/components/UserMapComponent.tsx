@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
 import USAMap from 'react-usa-map';
 import UserGoalModalComponent from './UserGoalModalComponent';
-import { UserGoal } from 'types/user-goal'
 
 interface UserMapComponentProps {
   userName: string;
