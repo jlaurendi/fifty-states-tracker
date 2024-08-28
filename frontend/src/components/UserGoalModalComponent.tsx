@@ -62,15 +62,16 @@ const UserGoalModalComponent: FC<UserGoalModalComponentProps> = ({
       });
   };
 
-  const onDelete = (event) => {
+  const onDelete = () => {
     axios
       .delete(`http://localhost:3000/users/1/goals/${userGoal.id}`)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then((response) => {
         console.log('success');
         onClose();
       })
       .catch((error) => {
-        console.log('error');
+        console.log(error);
       });
   };
 
