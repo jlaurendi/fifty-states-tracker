@@ -3,9 +3,13 @@ Rails.application.routes.draw do
   resources :marathons
 
   resources :users do
-    get :goals, on: :member
-    post :goals, to: "users#create_goal",  on: :member
+    resources :goals, only: [ :index, :create, :destroy ], controller: "user_goals"
   end
+
+  resources :posts, only: [ :create, :index, :show ]
+  resources :comments, only: [ :create, :index ]
+
+  # resources :goals, only: [:index]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

@@ -1,5 +1,6 @@
 class UserGoal < ApplicationRecord
   belongs_to :user
+  belongs_to :marathon, optional: true
 
   enum status: {
     tentative: "tentative",

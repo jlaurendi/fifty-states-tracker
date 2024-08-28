@@ -24,7 +24,7 @@ const UserGoalModalComponent: FC<UserGoalModalComponentProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   // const [currUserGoal, setCurrUserGoal] = useState(userGoal);
 
-  const handleSave = async (event) => {
+  const handleSave = (event) => {
     event.preventDefault();
 
     const formElement = document.querySelector(
@@ -47,7 +47,7 @@ const UserGoalModalComponent: FC<UserGoalModalComponentProps> = ({
     });
     const goalObject = { goal: formObject };
 
-    await axios
+    axios
       .post(`http://localhost:3000/users/1/goals`, goalObject, {
         headers: { 'Content-Type': 'application/json' },
       })
@@ -55,9 +55,22 @@ const UserGoalModalComponent: FC<UserGoalModalComponentProps> = ({
         const userGoals = response.data.userGoals;
         const newGoal = response.data.goal;
         onSave(newGoal, userGoals);
+        onClose();
       })
       .catch((error) => {
         console.log('Error:', error);
+      });
+  };
+
+  const onDelete = (event) => {
+    axios
+      .delete(`http://localhost:3000/users/1/goals/${userGoal.id}`)
+      .then((response) => {
+        console.log('success');
+        onClose();
+      })
+      .catch((error) => {
+        console.log('error');
       });
   };
 
@@ -91,15 +104,16 @@ const UserGoalModalComponent: FC<UserGoalModalComponentProps> = ({
         )}
         {userGoal && !isEditing && (
           <>
-            <h2 className="modal-title">{selectedState} Marathon</h2>
+            <h2 className="modal-title">Viewing {selectedState} Marathon</h2>
             <p>Target date: {userGoal?.target_date}</p>
             <p>Status: {userGoal?.status}</p>
             <button onClick={onClose}>Close</button>
+            <button onClick={onDelete}>Delete</button>
           </>
         )}
         {userGoal && isEditing && (
           <>
-            <h2 className="modal-title">{selectedState} Marathon</h2>
+            <h2 className="modal-title">Editing {selectedState} Marathon</h2>
             <p>Target date: {userGoal?.target_date}</p>
             <p>Status: {userGoal?.status}</p>
             <button onClick={onClose}>Close</button>

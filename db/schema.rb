@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_21_212652) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_28_172247) do
+  create_table "comments", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.string "user_name"
+    t.integer "parent_comment_id"
+    t.text "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+  end
+
   create_table "marathons", force: :cascade do |t|
     t.string "name"
     t.string "city"
@@ -18,6 +28,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_21_212652) do
     t.decimal "latitude"
     t.decimal "longitude"
     t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "user_name"
+    t.string "title"
+    t.string "url"
+    t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,6 +73,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_21_212652) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "posts"
   add_foreign_key "user_goals", "marathons"
   add_foreign_key "user_goals", "users"
 end
